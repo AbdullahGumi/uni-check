@@ -1,20 +1,26 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
+import { Provider } from "react-redux";
+
+import StackNavigator from "./src/navigation/StackNavigator";
+import useCachedResources from "./src/hooks/useCachedResources";
+
+import { Store } from "./src/redux/Store";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const { isLoadingComplete } = useCachedResources();
+  if (isLoadingComplete) {
+    return (
+      <NavigationContainer>
+        <Provider store={Store}>
+          <StackNavigator />
+          <Toast />
+          <StatusBar style="auto" />
+        </Provider>
+      </NavigationContainer>
+    );
+  } else {
+    return null;
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
