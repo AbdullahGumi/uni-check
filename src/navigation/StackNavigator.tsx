@@ -25,8 +25,8 @@ const StackNavigator = () => {
           headerShown: false,
         }}
       >
-        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
-        {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
         <Stack.Screen name="Root" component={BottomTabNavigator} />
         <Stack.Screen
           name="Common"

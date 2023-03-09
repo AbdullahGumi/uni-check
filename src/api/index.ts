@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_BASE_URL } from "@env";
 
 const api = axios.create({
-  baseURL: "https://9738-102-89-49-42.eu.ngrok.io/",
+  baseURL: "https://c4ab-102-89-55-149.eu.ngrok.io",
   responseType: "json",
   headers: {
     "Content-Type": "application/json",

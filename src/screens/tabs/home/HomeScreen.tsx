@@ -63,7 +63,7 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
               marginTop: 20,
             }}
           >
-            Mark Attendance
+            Check In
           </CustomText>
         </View>
         <View
