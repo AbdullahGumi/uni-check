@@ -1,54 +1,45 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../Store";
-import { IUserState } from "../types";
+import { IStudentInfo } from "../../api/userApi";
 
-const initialState: IUserState = {
+const initialState: IStudentInfo = {
   loading: false,
   loaded: false,
-  phoneNumber: "",
-  firstName: "",
-  lastName: "",
-  accountNumber: "",
-  accountBalance: "",
   email: "",
-  gender: undefined,
-  transactionHistory: {
-    loading: false,
-    loaded: false,
-    data: [],
-  },
+  fullName: "",
+  phoneNumber: "",
+  registrationNumber: "",
+  lectures: [],
 };
 
 export const userSlice = createSlice({
-  name: "user",
+  name: "student",
   initialState,
   reducers: {
-    setUser: (
+    setStudentInfo: (state, action: PayloadAction<IStudentInfo>) => {
+      state.loading = false;
+      state.loaded = true;
+      state.email = action.payload.email;
+      state.fullName = action.payload.fullName;
+      state.phoneNumber = action.payload.phoneNumber;
+      state.registrationNumber = action.payload.registrationNumber;
+      state.lectures = action.payload.lectures;
+    },
+    addLecture: (
       state,
       action: PayloadAction<{
-        firstName: string;
-        lastName: string;
-        email: string;
-        phoneNumber: string;
-        gender: number;
-        accountNumber: string;
-        accountBalance: string;
+        courseCode: string;
+        courseName: string;
+        createdAt: string;
       }>
     ) => {
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.email = action.payload.email;
-      state.phoneNumber = action.payload.phoneNumber;
-      state.gender = action.payload.gender;
-      state.accountNumber = action.payload.accountNumber;
-      state.accountBalance = action.payload.accountBalance;
+      state.lectures.push(action.payload);
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setStudentInfo, addLecture } = userSlice.actions;
 
-export const selectUser = (state: RootState) => state.user;
+export const selectStudent = (state: RootState) => state.student;
 
 export default userSlice.reducer;

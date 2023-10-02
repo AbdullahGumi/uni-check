@@ -8,16 +8,16 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 
-import HideKeyboardOnTouch from "../../components/common/HideKeyboardOnTouch";
-import TextInput from "../../components/TextInput";
+import HideKeyboardOnTouch from "../components/common/HideKeyboardOnTouch";
+import TextInput from "../components/TextInput";
 
-import { emailValidator } from "../../helpers/emailValidator";
-import { pinValidator } from "../../helpers/pinValidator";
-import { globalStyles } from "../../styles";
+import { emailValidator } from "../helpers/emailValidator";
+import { pinValidator } from "../helpers/pinValidator";
+import { globalStyles } from "../styles";
 
-import { RootStackScreenProps } from "../../navigation/types";
-import { fieldValidator } from "../../helpers/nameValidator";
-import { signUpUserAPI } from "../../api/authApi";
+import { RootStackScreenProps } from "../navigation/types";
+import { fieldValidator } from "../helpers/nameValidator";
+import { signUpUserAPI } from "../api/authApi";
 import { AxiosError } from "axios";
 
 export default function RegisterScreen({
@@ -57,7 +57,7 @@ export default function RegisterScreen({
       pin: pin.value,
     })
       .then(() => {
-        navigation.replace("Root", { screen: "Home" });
+        navigation.replace("Home");
       })
       .catch((err: AxiosError) => console.log("err", err.response));
   };

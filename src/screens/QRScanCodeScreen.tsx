@@ -9,18 +9,21 @@ import {
 } from "expo-camera";
 import Toast from "react-native-toast-message";
 
-import { ArrowLeftIcon } from "../../../assets/svg";
+import { ArrowLeftIcon } from "../../assets/svg";
 
-import CustomText from "../../components/common/CustomText";
-import { CommonScreenProps } from "../../navigation/types";
-import { checkInStudentAPI } from "../../api/userApi";
-import { isJsonString } from "../../util/StringUtil";
+import CustomText from "../components/common/CustomText";
+import { checkInStudentAPI } from "../api/userApi";
+import { isJsonString } from "../util/StringUtil";
 import { AxiosError } from "axios";
+import { RootStackScreenProps } from "../navigation/types";
+import { useAppDispatch } from "../redux";
+import { addLecture } from "../redux/slice/userSlice";
 
-const QRScanCodeScreen = ({ navigation }: CommonScreenProps<"QRScan">) => {
+const QRScanCodeScreen = ({ navigation }: RootStackScreenProps<"QRScan">) => {
   const [cameraPermission, setCameraPermission] =
     useState<PermissionResponse>();
   const [scanned, setScanned] = useState(false);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     (async () => {
@@ -71,8 +74,16 @@ const QRScanCodeScreen = ({ navigation }: CommonScreenProps<"QRScan">) => {
     try {
       setScanned(true);
       const res = await checkInStudentAPI({ lectureId: data.lectureId });
+      console.log("res", res);
       if (res) {
-        Toast.show({ text1: res, type: "success" });
+        dispatch(
+          addLecture({
+            courseCode: res.data.courseCode,
+            courseName: res.data.courseName,
+            createdAt: res.data.createdAt,
+          })
+        );
+        Toast.show({ text1: res.message, type: "success" });
         navigation.goBack();
       }
     } catch (err) {

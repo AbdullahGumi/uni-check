@@ -6,23 +6,23 @@ import {
   Text,
   SafeAreaView,
 } from "react-native";
-import HideKeyboardOnTouch from "../../components/common/HideKeyboardOnTouch";
-import TextInput from "../../components/TextInput";
+import HideKeyboardOnTouch from "../components/common/HideKeyboardOnTouch";
+import TextInput from "../components/TextInput";
 
-import { pinValidator } from "../../helpers/pinValidator";
-import { globalStyles } from "../../styles";
+import { pinValidator } from "../helpers/pinValidator";
+import { globalStyles } from "../styles";
 
-import { RootStackScreenProps } from "../../navigation/types";
-import { loginUserAPI } from "../../api/authApi";
+import { RootStackScreenProps } from "../navigation/types";
+import { loginUserAPI } from "../api/authApi";
 
 export default function LoginScreen({
   navigation,
 }: RootStackScreenProps<"Login">) {
   const [registrationNumber, setRegistrationNumber] = useState({
-    value: "",
+    value: "U17cs1097",
     error: "",
   });
-  const [pin, setPin] = useState({ value: "", error: "" });
+  const [pin, setPin] = useState({ value: "123123", error: "" });
 
   const onLoginPressed = () => {
     const pinError = pinValidator(pin.value);
@@ -36,7 +36,7 @@ export default function LoginScreen({
       pin: pin.value,
     })
       .then(() => {
-        navigation.replace("Root", { screen: "Home" });
+        navigation.replace("Home");
       })
       .catch((err) => console.log(err));
   };

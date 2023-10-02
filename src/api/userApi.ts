@@ -4,6 +4,8 @@ import api from ".";
 import { getItemFromStorage } from "../util/StorageUtil";
 
 export interface IStudentInfo {
+  loading: boolean;
+  loaded: boolean;
   email: string;
   fullName: string;
   phoneNumber: string;

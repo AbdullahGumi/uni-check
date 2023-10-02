@@ -4,7 +4,7 @@ import userSlice from "./slice/userSlice";
 
 export const Store = configureStore({
   reducer: {
-    user: userSlice,
+    student: userSlice,
     activityMoadl: activityModalSlice,
   },
 });

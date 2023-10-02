@@ -4,12 +4,12 @@ import ActivityModal from "../components/common/ActivityModal";
 import { useAppSelector } from "../redux";
 import { selectActivityModal } from "../redux/slice/activityModalSlice";
 
-import LoginScreen from "../screens/auth/LoginScreen";
-import RegisterScreen from "../screens/auth/RegisterScreen";
+import LoginScreen from "../screens/LoginScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
-import BottomTabNavigator from "./BottomTabNavigator";
-import CommonStack from "./CommonStackNavigator";
 import { RootStackParamList } from "./types";
+import QRScanCodeScreen from "../screens/QRScanCodeScreen";
+import HomeScreen from "../screens/HomeScreen";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,12 +27,8 @@ const StackNavigator = () => {
       >
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Root" component={BottomTabNavigator} />
-        <Stack.Screen
-          name="Common"
-          component={CommonStack}
-          options={{ headerShown: false, gestureEnabled: true }}
-        />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="QRScan" component={QRScanCodeScreen} />
       </Stack.Navigator>
     </>
   );

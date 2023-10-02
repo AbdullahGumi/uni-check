@@ -26,7 +26,7 @@ const HistoryListItem = ({
             fontSize: 14,
           }}
         >
-          Attendace Marked ✅
+          Attendance Marked ✅
         </Text>
         <Text style={styles.date}>
           {formatDistanceToNow(new Date(createdAt), { addSuffix: true })}

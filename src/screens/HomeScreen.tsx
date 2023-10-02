@@ -7,25 +7,19 @@ import {
 } from "react-native";
 import { useLayoutEffect, useEffect, useState } from "react";
 
-import CustomText from "../../../components/common/CustomText";
-import HistoryListItem from "../../../components/listItem/HistoryListItem";
+import CustomText from "../components/common/CustomText";
+import HistoryListItem from "../components/listItem/HistoryListItem";
 
-import { globalStyles } from "../../../styles";
-import { QRCodeIcon } from "../../../../assets/svg";
-import { RootTabScreenProps } from "../../../navigation/types";
-import { getStudentInfoAPI, IStudentInfo } from "../../../api/userApi";
-import { setUser } from "../../../redux/slice/userSlice";
-import { useAppDispatch } from "../../../redux";
+import { globalStyles } from "../styles";
+import { QRCodeIcon } from "../../assets/svg";
+import { getStudentInfoAPI, IStudentInfo } from "../api/userApi";
+import { setStudentInfo } from "../redux/slice/userSlice";
+import { useAppDispatch, useAppSelector } from "../redux";
+import { RootStackScreenProps } from "../navigation/types";
 
-const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
-  const [studentInfo, setStudentInfo] = useState<IStudentInfo>({
-    email: "",
-    fullName: "",
-    phoneNumber: "",
-    registrationNumber: "",
-    lectures: [],
-  });
+const HomeScreen = ({ navigation }: RootStackScreenProps<"Home">) => {
   const dispatch = useAppDispatch();
+  const studentInfo = useAppSelector(({ student }) => student);
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -34,7 +28,19 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
 
   useEffect(() => {
     getStudentInfoAPI()
-      .then((res) => setStudentInfo(res))
+      .then((res) =>
+        dispatch(
+          setStudentInfo({
+            email: res.email,
+            fullName: res.fullName,
+            lectures: res.lectures,
+            phoneNumber: res.phoneNumber,
+            registrationNumber: res.registrationNumber,
+            loaded: true,
+            loading: false,
+          })
+        )
+      )
       .catch((err) => console.log(err));
   }, []);
 
@@ -43,7 +49,7 @@ const HomeScreen = ({ navigation }: RootTabScreenProps<"Home">) => {
       <View style={globalStyles.container}>
         <View style={{ alignItems: "center", marginTop: "auto" }}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("Common", { screen: "QRScan" })}
+            onPress={() => navigation.navigate("QRScan")}
             activeOpacity={0.9}
             style={{
               width: 80,
